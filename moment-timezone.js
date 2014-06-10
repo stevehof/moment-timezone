@@ -210,7 +210,10 @@
 			var m = moment.apply(null, args);
 			var preTzOffset = m.zone();
 			m.tz(arguments[len]);
-			return m.add('minutes', m.zone() - preTzOffset);
+			var postTzOffset = m.zone();
+			m.add('minutes', m.zone() - preTzOffset);
+			//There may be an extra shift due to DST.
+			return m.add('minutes', m.zone()-postTzOffset);
 		}
 
 		tz.version      = VERSION;
